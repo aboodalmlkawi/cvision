@@ -1,0 +1,86 @@
+name: cvision
+
+
+description: A smart ATS-friendly CV Builder app using Flutter & Firebase.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Localization
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.20.2
+
+  # State Management
+  flutter_riverpod: ^2.4.9
+
+  # Firebase
+  firebase_core: ^2.32.0
+  firebase_auth: ^4.17.5
+  cloud_firestore: ^4.17.5
+  firebase_storage: ^11.6.5
+  firebase_app_check: ^0.2.2
+
+  # UI Utilities
+  google_fonts: ^6.1.0
+  flutter_svg: ^2.0.9
+  animate_do: ^3.3.2
+  shimmer: ^3.0.0
+
+  # PDF & Printing
+  pdf: ^3.11.3
+  printing: 5.13.1
+  path_provider: ^2.1.2
+
+  # Utils
+  share_plus: ^10.0.0
+  qr_flutter: ^4.1.0
+  uuid: ^4.3.3
+
+  # Forms
+  email_validator: ^2.1.17
+  image_picker: ^1.2.1
+  font_awesome_flutter: ^10.12.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.3.1
+
+flutter:
+  uses-material-design: true
+
+  # Assets
+  assets:
+    - assets/icons/
+    - assets/images/
+    - assets/fonts/
+    - assets/logo.png
+    - lib/core/localization/
+
+
+# Launcher Icon
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/logo.png"
+  min_sdk_android: 21
+
+
+# Native Splash
+
+flutter_native_splash:
+  color: "#1A1A1D"
+  image: "assets/logo.png"
+  android_12:
+    image: "assets/logo.png"
+    color: "#1A1A1D"
