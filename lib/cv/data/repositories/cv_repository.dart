@@ -1,5 +1,10 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../firestore_service.dart';
 import '../models/cv_model.dart';
+
+final cvRepositoryProvider = Provider<CVRepository>((ref) {
+  return CVRepository();
+});
 
 class CVRepository {
   final FirestoreService _firestoreService;

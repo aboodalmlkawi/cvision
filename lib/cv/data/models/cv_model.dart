@@ -12,6 +12,7 @@ class CVModel {
   final List<String> languages;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final int score;
 
   CVModel({
     required this.id,
@@ -25,9 +26,40 @@ class CVModel {
     required this.languages,
     required this.createdAt,
     required this.updatedAt,
+    this.score = 0,
   });
 
   String get summary => personalInfo.summary;
+
+  CVModel copyWith({
+    String? id,
+    String? userId,
+    String? templateId,
+    String? title,
+    PersonalInfo? personalInfo,
+    List<Education>? education,
+    List<Experience>? experience,
+    List<String>? skills,
+    List<String>? languages,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    int? score,
+  }) {
+    return CVModel(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      templateId: templateId ?? this.templateId,
+      title: title ?? this.title,
+      personalInfo: personalInfo ?? this.personalInfo,
+      education: education ?? this.education,
+      experience: experience ?? this.experience,
+      skills: skills ?? this.skills,
+      languages: languages ?? this.languages,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      score: score ?? this.score,
+    );
+  }
 
   Map<String, dynamic> toMap() {
     return {
@@ -42,6 +74,7 @@ class CVModel {
       'languages': languages,
       'createdAt': Timestamp.fromDate(createdAt),
       'updatedAt': Timestamp.fromDate(updatedAt),
+      'score': score,
     };
   }
 
@@ -58,6 +91,7 @@ class CVModel {
       languages: List<String>.from(map['languages'] ?? []),
       createdAt: (map['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
       updatedAt: (map['updatedAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      score: map['score']?.toInt() ?? 0,
     );
   }
 }
@@ -102,16 +136,30 @@ class Education {
   final String degree;
   final String startDate;
   final String endDate;
+  final String description;
 
-  Education({required this.schoolName, required this.degree, required this.startDate, required this.endDate});
+  Education({
+    required this.schoolName,
+    required this.degree,
+    required this.startDate,
+    required this.endDate,
+    this.description = '',
+  });
 
-  Map<String, dynamic> toMap() => {'schoolName': schoolName, 'degree': degree, 'startDate': startDate, 'endDate': endDate};
+  Map<String, dynamic> toMap() => {
+    'schoolName': schoolName,
+    'degree': degree,
+    'startDate': startDate,
+    'endDate': endDate,
+    'description': description,
+  };
 
   factory Education.fromMap(Map<String, dynamic> map) => Education(
     schoolName: map['schoolName'] ?? map['school'] ?? '',
     degree: map['degree'] ?? '',
     startDate: map['startDate'] ?? '',
     endDate: map['endDate'] ?? '',
+    description: map['description'] ?? '',
   );
 }
 
@@ -122,9 +170,21 @@ class Experience {
   final String startDate;
   final String endDate;
 
-  Experience({required this.companyName, required this.jobTitle, required this.description, required this.startDate, required this.endDate});
+  Experience({
+    required this.companyName,
+    required this.jobTitle,
+    required this.description,
+    required this.startDate,
+    required this.endDate
+  });
 
-  Map<String, dynamic> toMap() => {'companyName': companyName, 'jobTitle': jobTitle, 'description': description, 'startDate': startDate, 'endDate': endDate};
+  Map<String, dynamic> toMap() => {
+    'companyName': companyName,
+    'jobTitle': jobTitle,
+    'description': description,
+    'startDate': startDate,
+    'endDate': endDate
+  };
 
   factory Experience.fromMap(Map<String, dynamic> map) => Experience(
     companyName: map['companyName'] ?? map['company'] ?? '',

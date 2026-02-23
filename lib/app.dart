@@ -12,7 +12,6 @@ class CVisionApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentLocale = ref.watch(localeProvider);
-
     return MaterialApp(
       title: 'CVision',
       debugShowCheckedModeBanner: false,
@@ -23,14 +22,12 @@ class CVisionApp extends ConsumerWidget {
         Locale('en'),
         Locale('ar'),
       ],
-
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-
       home: const FancySplashScreen(),
     );
   }

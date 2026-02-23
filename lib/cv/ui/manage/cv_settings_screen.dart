@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 import 'package:cvision/core/constants/colors.dart';
 import 'package:cvision/cv/data/models/cv_model.dart';
-import 'package:cvision/cv/logic/cv_controller.dart'; // ✅ استخدام الكنترولر
-import 'package:cvision/core/ui/glass_widgets.dart'; // ✅ التصميم الزجاجي
+import 'package:cvision/cv/logic/cv_controller.dart';
+import 'package:cvision/core/ui/glass_widgets.dart';
 
 class CVSettingsScreen extends ConsumerWidget {
   final CVModel cv;
@@ -15,7 +15,7 @@ class CVSettingsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: const Color(0xFF1A1A1D), // الخلفية الموحدة للمشروع
+      backgroundColor: const Color(0xFF1A1A1D),
       appBar: AppBar(
         title: const Text("إعدادات الملف", style: TextStyle(fontFamily: 'Cairo', fontWeight: FontWeight.bold, color: Colors.white)),
         backgroundColor: Colors.transparent,
@@ -27,13 +27,11 @@ class CVSettingsScreen extends ConsumerWidget {
       ),
       body: Stack(
         children: [
-          // خلفية ثابتة متناسقة
           const Positioned.fill(child: _StaticBackground()),
 
           ListView(
             padding: const EdgeInsets.fromLTRB(20, 120, 20, 20),
             children: [
-              // خيار تكرار السيرة الذاتية
               _buildGlassOption(
                 context,
                 icon: Icons.copy_rounded,
@@ -42,10 +40,10 @@ class CVSettingsScreen extends ConsumerWidget {
                 iconColor: Colors.blueAccent,
                 onTap: () async {
                   final newCV = CVModel(
-                    id: const Uuid().v4(), // ✅ توليد معرف فريد جديد
+                    id: const Uuid().v4(),
                     userId: cv.userId,
-                    templateId: cv.templateId, // ✅ الحفاظ على نفس القالب
-                    title: "${cv.title} (نسخة)", // ✅ إضافة تمييز للنسخة
+                    templateId: cv.templateId,
+                    title: "${cv.title} (نسخة)",
                     personalInfo: cv.personalInfo,
                     education: List.from(cv.education),
                     experience: List.from(cv.experience),
@@ -56,7 +54,6 @@ class CVSettingsScreen extends ConsumerWidget {
                   );
 
                   try {
-                    // ✅ استخدام الكنترولر للحفظ لضمان تحديث الشاشة الرئيسية فوراً
                     await ref.read(cvControllerProvider.notifier).saveCV(newCV);
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -74,7 +71,6 @@ class CVSettingsScreen extends ConsumerWidget {
 
               const SizedBox(height: 15),
 
-              // خيار الحذف النهائي
               _buildGlassOption(
                 context,
                 icon: Icons.delete_forever_rounded,
@@ -90,7 +86,6 @@ class CVSettingsScreen extends ConsumerWidget {
     );
   }
 
-  // ✅ بناء الخيار بتصميم زجاجي متناسق
   Widget _buildGlassOption(BuildContext context, {
     required IconData icon,
     required String title,
@@ -114,7 +109,6 @@ class CVSettingsScreen extends ConsumerWidget {
     );
   }
 
-  // ✅ ديالوج الحذف بتصميم المشروع
   void _confirmDelete(BuildContext context, WidgetRef ref) {
     showDialog(
       context: context,

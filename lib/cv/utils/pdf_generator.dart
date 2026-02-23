@@ -97,7 +97,7 @@ Future<Uint8List> generateCV(CVModel cv) async {
                       pw.Column(
                         crossAxisAlignment: pw.CrossAxisAlignment.start,
                         children: [
-                          pw.Text(e.institution, style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 12)),
+                          pw.Text(e.schoolName, style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 12)),
                           pw.Text(e.degree, style: const pw.TextStyle(fontSize: 11, color: subTextColor)),
                         ],
                       ),
@@ -111,8 +111,6 @@ Future<Uint8List> generateCV(CVModel cv) async {
               }),
               pw.SizedBox(height: 15),
             ],
-
-            // --- الخبرات (Experience) ---
             if (cv.experience.isNotEmpty) ...[
               _buildSectionTitle("الخبرات العملية", primaryColor),
               ...cv.experience.map((e) {
@@ -131,7 +129,7 @@ Future<Uint8List> generateCV(CVModel cv) async {
                           ),
                         ],
                       ),
-                      pw.Text(e.company, style: const pw.TextStyle(fontSize: 11, color: primaryColor)),
+                      pw.Text(e.companyName, style: const pw.TextStyle(fontSize: 11, color: primaryColor)),
                     ],
                   ),
                 );

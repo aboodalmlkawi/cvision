@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cvision/cv/ui/template_cvs_screen.dart'; // ✅ تأكد أنك تستدعي صفحة العرض
+import 'package:cvision/cv/ui/template_cvs_screen.dart';
 
 class TemplateSelectionScreen extends StatelessWidget {
   const TemplateSelectionScreen({super.key});
@@ -13,7 +13,7 @@ class TemplateSelectionScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        automaticallyImplyLeading: false, // إزالة سهم الرجوع إذا كانت في البار السفلي
+        automaticallyImplyLeading: false,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -35,7 +35,6 @@ class TemplateSelectionScreen extends StatelessWidget {
   Widget _buildTemplateCard(BuildContext context, String name, String id, Color color) {
     return InkWell(
       onTap: () {
-        // ✅✅ هنا التصحيح: الانتقال لصفحة "عرض الملفات" وليس "إنشاء جديد"
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -65,7 +64,6 @@ class TemplateSelectionScreen extends StatelessWidget {
             const SizedBox(height: 15),
             Text(name, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold, fontFamily: 'Cairo')),
             const SizedBox(height: 5),
-            // نص توضيحي يؤكد أن هذا للعرض
             const Text("Tap to view files", style: TextStyle(color: Colors.white38, fontSize: 10, fontFamily: 'Cairo')),
           ],
         ),

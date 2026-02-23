@@ -29,13 +29,11 @@ class TemplateCVsScreen extends ConsumerWidget {
         error: (err, stack) => Center(child: Text("Error: $err", style: TextStyle(color: Colors.red))),
         data: (allCVs) {
 
-          // طباعة للتشخيص (شوف النتيجة في التيرمينال تحت)
           print("🔍 Checking Template: Want '$templateId'");
           for (var cv in allCVs) {
             print("📄 Found File: ${cv.title}, Type: '${cv.templateId}'");
           }
 
-          // الفلترة (تنظيف المسافات وتوحيد الأحرف)
           final filteredCVs = allCVs.where((cv) =>
           cv.templateId.toString().trim().toLowerCase() == templateId.toString().trim().toLowerCase()
           ).toList();
@@ -53,7 +51,6 @@ class TemplateCVsScreen extends ConsumerWidget {
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
-                      // ينقلك للإنشاء بنفس النوع
                       Navigator.push(context, MaterialPageRoute(builder: (_) => CVEditorScreen(templateId: templateId)));
                     },
                     child: const Text("Create New Here"),

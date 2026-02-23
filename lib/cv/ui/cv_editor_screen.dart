@@ -196,7 +196,6 @@ class _CVEditorScreenState extends ConsumerState<CVEditorScreen> with SingleTick
             label: Text(s, style: const TextStyle(color: Colors.white)),
             backgroundColor: Colors.purpleAccent.withOpacity(0.2),
             onDeleted: () => setState(() => _skills.remove(s)),
-            // ✅ تم تصحيح هنا: استخدام side بدلاً من border
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10), side: const BorderSide(color: Colors.purpleAccent)),
           )).toList())),
         ],
@@ -209,7 +208,6 @@ class _CVEditorScreenState extends ConsumerState<CVEditorScreen> with SingleTick
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: const Color(0xFF1E1E2C).withOpacity(0.9),
-        // ✅ تم تصحيح هنا: استخدام side بدلاً من border
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20), side: const BorderSide(color: Colors.white10)),
         title: Text(title, style: const TextStyle(color: Colors.white, fontFamily: 'Cairo')),
         content: Column(mainAxisSize: MainAxisSize.min, children: children),

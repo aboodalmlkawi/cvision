@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cvision/core/constants/colors.dart';
 import 'package:cvision/auth/ui/auth_screen.dart';
-import 'package:cvision/core/ui/glass_widgets.dart'; // استدعاء الملف الجديد
-// تأكد من استدعاء AnimatedBackground من ملف HomeScreen أو وضعه في ملف منفصل
+import 'package:cvision/core/ui/glass_widgets.dart';
 import 'package:cvision/home/ui/home_screen.dart';
 
 class SettingsScreen extends ConsumerWidget {
@@ -22,10 +21,7 @@ class SettingsScreen extends ConsumerWidget {
       ),
       body: Stack(
         children: [
-          // 1. الخلفية المتحركة
           const Positioned.fill(child: AnimatedBackground()),
-
-          // 2. المحتوى الزجاجي
           ListView(
             padding: const EdgeInsets.fromLTRB(20, 100, 20, 20),
             children: [

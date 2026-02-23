@@ -1,5 +1,4 @@
 class AtsRules {
-  // (Action Verbs)
   static const List<String> actionVerbs = [
     "developed", "managed", "led", "created", "designed", "implemented",
     "improved", "analyzed", "optimized", "collaborated", "achieved"
