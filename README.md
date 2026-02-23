@@ -14,11 +14,10 @@
 
 | Dashboard & Analytics | Glassmorphism Editor | Smart Template Engine | ATS Scoring & Export |
 |:---:|:---:|:---:|:---:|
-| *![WhatsApp Image 2026-02-24 at 2 31 38 AM (2)](https://github.com/user-attachments/assets/6fb2a6d2-f24b-4680-adba-4e3696e93a1f)
-* | *![WhatsApp Image 2026-02-24 at 2 31 38 AM](https://github.com/user-attachments/assets/55cfcd88-b005-4b6b-b42e-f7ac4dd888c5) *
- | *![WhatsApp Image 2026-02-24 at 2 31 38 AM (1)](https://github.com/user-attachments/assets/ffa546d0-4921-4e16-8fd8-ca23dabee38a)
-* | *![Uploading WhatsApp Image 2026-02-24 at 2.32.57 AM.jpeg…]()
-* |
+|![WhatsApp Image 2026-02-24 at 2 31 38 AM (2)](https://github.com/user-attachments/assets/bc371ad5-7ceb-4369-81b6-d5c89b7b6598)|
+|![WhatsApp Image 2026-02-24 at 2 31 38 AM](https://github.com/user-attachments/assets/3b3a9275-28ed-40dc-b208-395107df9664)|
+|![WhatsApp Image 2026-02-24 at 2 31 38 AM (1)](https://github.com/user-attachments/assets/52a8c5f9-f6bc-415c-9c92-52d544a6c70b)|
+|![WhatsApp Image 2026-02-24 at 2 32 57 AM](https://github.com/user-attachments/assets/6e02d69f-9924-49af-9d54-0ba4626b2272)|
 
 ---
 
@@ -63,4 +62,5 @@ lib/
 ├── export/                # PDF Assembly and QR/Link Sharing Services
 ├── home/                  # Dashboard, Navigation, and Profile State
 └── settings/              # Application Preferences
+
 
