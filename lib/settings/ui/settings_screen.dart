@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cvision/core/constants/colors.dart';
 import 'package:cvision/auth/ui/auth_screen.dart';
 import 'package:cvision/core/ui/glass_widgets.dart';
 import 'package:cvision/home/ui/home_screen.dart';
+
+import 'package:cvision/auth/ui/change_password_screen.dart';
+import 'package:cvision/settings/ui/help_support_screen.dart';
+import 'package:cvision/settings/ui/privacy_policy_screen.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -31,9 +34,17 @@ class SettingsScreen extends ConsumerWidget {
                 padding: EdgeInsets.zero,
                 child: Column(
                   children: [
-                    // _buildTile(Icons.support_agent, "Help & Support", () {}),
-                    // const Divider(height: 1, color: Colors.white10),
-                    // _buildTile(Icons.privacy_tip_outlined, "Privacy Policy", () {}),
+                    _buildTile(Icons.support_agent, "Help & Support", () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute<void>(builder: (_) => const HelpSupportScreen()),
+                      );
+                    }),
+                    const Divider(height: 1, color: Colors.white10),
+                    _buildTile(Icons.privacy_tip_outlined, "Privacy Policy", () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute<void>(builder: (_) => const PrivacyPolicyScreen()),
+                      );
+                    }),
                   ],
                 ),
               ),
@@ -45,7 +56,11 @@ class SettingsScreen extends ConsumerWidget {
                 padding: EdgeInsets.zero,
                 child: Column(
                   children: [
-                    // _buildTile(Icons.lock_reset_outlined, "Change Password", () {}),
+                    _buildTile(Icons.lock_reset_outlined, "Change Password", () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute<void>(builder: (_) => const ChangePasswordScreen()),
+                      );
+                    }),
                     const Divider(height: 1, color: Colors.white10),
                     _buildTile(
                         Icons.logout,

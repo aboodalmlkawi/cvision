@@ -30,6 +30,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
+    final profileData = ref.watch(userFirestoreProfileProvider).valueOrNull;
+    final welcomeName = userWelcomeName(profileData, user);
     final List<Widget> _pages = [
       _buildHomeView(user),
       const TemplateSelectionScreen(),
@@ -50,7 +52,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ],
       ),
 
-      appBar: _currentIndex == 0 ? _buildHomeAppBar(user) : null,
+      appBar: _currentIndex == 0 ? _buildHomeAppBar(welcomeName) : null,
       bottomNavigationBar: HomeBottomBar(
         currentIndex: _currentIndex,
         onTap: (index) {
@@ -76,7 +78,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  PreferredSizeWidget _buildHomeAppBar(User? user) {
+  PreferredSizeWidget _buildHomeAppBar(String welcomeName) {
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
@@ -117,7 +119,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               end: Alignment.bottomCenter,
             ).createShader(bounds),
             child: Text(
-              user?.displayName ?? "User",
+              welcomeName,
               style: const TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
