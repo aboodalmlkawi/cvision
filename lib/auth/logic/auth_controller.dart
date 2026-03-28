@@ -49,8 +49,9 @@ class AuthController extends StateNotifier<AuthState> {
         password: password,
       );
 
-      // Save data in Firestore
+      // Save data in Firestore and keep Auth displayName in sync for the app bar / profile.
       if (cred.user != null) {
+        await cred.user!.updateDisplayName(fullName);
         await _firestore.collection('users').doc(cred.user!.uid).set({
           'uid': cred.user!.uid,
           'email': email,

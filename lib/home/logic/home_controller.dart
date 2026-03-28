@@ -8,6 +8,31 @@ final authStateProvider = StreamProvider<User?>((ref) {
   return FirebaseAuth.instance.authStateChanges();
 });
 
+/// Firestore `users/{uid}` document; used for fullName / jobTitle (source of truth with Auth).
+final userFirestoreProfileProvider = StreamProvider.autoDispose<Map<String, dynamic>?>((ref) {
+  final authAsync = ref.watch(authStateProvider);
+  return authAsync.when(
+    data: (user) {
+      if (user == null) return Stream.value(null);
+      return FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .snapshots()
+          .map((snap) => snap.exists ? snap.data() : null);
+    },
+    loading: () => Stream.value(null),
+    error: (_, __) => Stream.value(null),
+  );
+});
+
+String userWelcomeName(Map<String, dynamic>? profileData, User? user) {
+  final fromFs = (profileData?['fullName'] as String?)?.trim();
+  if (fromFs != null && fromFs.isNotEmpty) return fromFs;
+  final fromAuth = user?.displayName?.trim();
+  if (fromAuth != null && fromAuth.isNotEmpty) return fromAuth;
+  return 'User';
+}
+
 final homeCVsProvider = StreamProvider.autoDispose<List<CVModel>>((ref) {
   final authState = ref.watch(authStateProvider);
 

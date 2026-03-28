@@ -23,12 +23,12 @@ class EmptyState extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           const Text(
-            "لا توجد ملفات محفوظة بعد",
+            "No saved CVs yet",
             style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Cairo'),
           ),
           const SizedBox(height: 10),
           const Text(
-            "ابدأ بإنشاء سيرتك الذاتية الأولى الآن",
+            "Create your first resume to get started",
             style: TextStyle(color: Colors.grey, fontSize: 14, fontFamily: 'Cairo'),
           ),
           const SizedBox(height: 30),
@@ -40,7 +40,7 @@ class EmptyState extends StatelessWidget {
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
             ),
             icon: const Icon(Icons.add, color: Colors.white),
-            label: const Text("إنشاء جديد", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontFamily: 'Cairo')),
+            label: const Text("Create new", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontFamily: 'Cairo')),
           ),
         ],
       ),
