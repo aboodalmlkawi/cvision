@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cvision/core/constants/colors.dart';
 import 'package:cvision/core/localization/app_localizations.dart';
+import 'package:cvision/auth/ui/change_password_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -16,10 +17,10 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final User? user = FirebaseAuth.instance.currentUser;
+  User? get _user => FirebaseAuth.instance.currentUser;
 
   String _displayName = "User";
-  String _jobTitle = "Software Engineer";
+  String _jobTitle = "";
   String _phone = "";
   String _linkedin = "";
   String _github = "";
@@ -32,40 +33,58 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.initState();
     _loadUserProfile();
   }
+  String? _trimmedNonEmpty(dynamic value) {
+    if (value == null) return null;
+    final s = value.toString().trim();
+    return s.isEmpty ? null : s;
+  }
+
   Future<void> _loadUserProfile() async {
-    if (user == null) return;
-    setState(() => _displayName = user?.displayName ?? "User");
+    final u = _user;
+    if (u == null) {
+      if (mounted) setState(() => _isLoading = false);
+      return;
+    }
     try {
-      final doc = await FirebaseFirestore.instance.collection('users').doc(user!.uid).get();
-      if (doc.exists && mounted) {
-        final data = doc.data()!;
+      final doc = await FirebaseFirestore.instance.collection('users').doc(u.uid).get();
+      final data = doc.data();
+      final fromFirestore = _trimmedNonEmpty(data?['fullName']);
+      final name = fromFirestore ?? _trimmedNonEmpty(u.displayName) ?? "User";
+      if (mounted) {
         setState(() {
-          _jobTitle = data['jobTitle'] ?? "Software Engineer";
-          _phone = data['phone'] ?? "";
-          _linkedin = data['linkedin'] ?? "";
-          _github = data['github'] ?? "";
+          _displayName = name;
+          _jobTitle = _trimmedNonEmpty(data?['jobTitle']) ?? "";
+          _phone = _trimmedNonEmpty(data?['phone']) ?? "";
+          _linkedin = _trimmedNonEmpty(data?['linkedin']) ?? "";
+          _github = _trimmedNonEmpty(data?['github']) ?? "";
         });
       }
     } catch (e) {
       debugPrint("Error loading profile: $e");
+      if (mounted) {
+        setState(() => _displayName = _trimmedNonEmpty(u.displayName) ?? "User");
+      }
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }
   }
 
   Future<void> _saveProfile(String name, String job, String phone, String linkedin, String github) async {
-    if (user == null) return;
+    final u = _user;
+    if (u == null) return;
 
     try {
-      if (name.isNotEmpty && name != user!.displayName) {
-        await user!.updateDisplayName(name);
+      if (name.isNotEmpty && name != u.displayName) {
+        await u.updateDisplayName(name);
+        await u.reload();
       }
-      await FirebaseFirestore.instance.collection('users').doc(user!.uid).set({
+      await FirebaseFirestore.instance.collection('users').doc(u.uid).set({
+        'fullName': name,
         'jobTitle': job,
         'phone': phone,
         'linkedin': linkedin,
         'github': github,
-        'email': user!.email,
+        'email': u.email,
         'updatedAt': FieldValue.serverTimestamp(),
       }, SetOptions(merge: true));
       setState(() {
@@ -91,16 +110,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
   Future<void> _pickAndUploadImage() async {
+    final u = _user;
+    if (u == null) return;
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: ImageSource.gallery, imageQuality: 70);
     if (image == null) return;
     setState(() => _isUploading = true);
     try {
-      final storageRef = FirebaseStorage.instance.ref().child('user_profile_images').child('${user!.uid}.jpg');
+      final storageRef = FirebaseStorage.instance.ref().child('user_profile_images').child('${u.uid}.jpg');
       await storageRef.putFile(File(image.path));
       final String downloadUrl = await storageRef.getDownloadURL();
-      await user!.updatePhotoURL(downloadUrl);
-      await FirebaseFirestore.instance.collection('users').doc(user!.uid).set({
+      await u.updatePhotoURL(downloadUrl);
+      await FirebaseFirestore.instance.collection('users').doc(u.uid).set({
         'photoUrl': downloadUrl
       }, SetOptions(merge: true));
       setState(() {});
@@ -145,8 +166,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               style: const TextStyle(color: Colors.white54, fontSize: 14, fontFamily: 'Cairo'),
             ),
             Text(
-              _jobTitle,
-              style: const TextStyle(color: AppColors.primaryAccent, fontSize: 14, fontFamily: 'Cairo'),
+              _jobTitle.isEmpty ? "Add your job title" : _jobTitle,
+              style: TextStyle(
+                color: _jobTitle.isEmpty ? Colors.white38 : AppColors.primaryAccent,
+                fontSize: 14,
+                fontFamily: 'Cairo',
+                fontStyle: _jobTitle.isEmpty ? FontStyle.italic : FontStyle.normal,
+              ),
             ),
             const SizedBox(height: 15),
             Row(
@@ -175,6 +201,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
               subtitle: "Change name, title, links...",
               onTap: () => _showEditProfileDialog(context),
             ),
+            if (_hasEmailPasswordProvider(currentUser))
+              _buildOptionTile(
+                context,
+                icon: Icons.password,
+                title: "Change Password",
+                subtitle: "Update your account password",
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute<void>(builder: (_) => const ChangePasswordScreen()),
+                ),
+              ),
           ],
         ),
       ),
@@ -391,6 +427,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         );
       },
     );
+  }
+
+  bool _hasEmailPasswordProvider(User? u) {
+    if (u == null) return false;
+    return u.providerData.any((p) => p.providerId == EmailAuthProvider.EMAIL_PASSWORD_SIGN_IN_METHOD);
   }
 
   Widget _buildModernTextField(TextEditingController controller, String label, IconData icon, {TextInputType inputType = TextInputType.text}) {
