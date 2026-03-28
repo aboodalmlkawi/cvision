@@ -158,15 +158,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
             const SizedBox(height: 30),
-            Row(
-              children: [
-                Expanded(child: _buildStatCard("3", "CVs Created", Icons.description)),
-                const SizedBox(width: 15),
-                Expanded(child: _buildStatCard("12", "Views", Icons.visibility)),
-              ],
-            ),
+            // Row(
+            //   children: [
+            //     Expanded(child: _buildStatCard("3", "CVs Created", Icons.description)),
+            //     const SizedBox(width: 15),
+            //     Expanded(child: _buildStatCard("12", "Views", Icons.visibility)),
+            //   ],
+            // ),
             const SizedBox(height: 30),
-            _buildAIButton(),
+            // _buildAIButton(),
             const SizedBox(height: 20),
             _buildOptionTile(
               context,

@@ -25,15 +25,15 @@ class SettingsScreen extends ConsumerWidget {
           ListView(
             padding: const EdgeInsets.fromLTRB(20, 100, 20, 20),
             children: [
-              const _SectionHeader(title: "Support"),
+              // const _SectionHeader(title: "Support"),
 
               GlassContainer(
                 padding: EdgeInsets.zero,
                 child: Column(
                   children: [
-                    _buildTile(Icons.support_agent, "Help & Support", () {}),
-                    const Divider(height: 1, color: Colors.white10),
-                    _buildTile(Icons.privacy_tip_outlined, "Privacy Policy", () {}),
+                    // _buildTile(Icons.support_agent, "Help & Support", () {}),
+                    // const Divider(height: 1, color: Colors.white10),
+                    // _buildTile(Icons.privacy_tip_outlined, "Privacy Policy", () {}),
                   ],
                 ),
               ),
@@ -45,7 +45,7 @@ class SettingsScreen extends ConsumerWidget {
                 padding: EdgeInsets.zero,
                 child: Column(
                   children: [
-                    _buildTile(Icons.lock_reset_outlined, "Change Password", () {}),
+                    // _buildTile(Icons.lock_reset_outlined, "Change Password", () {}),
                     const Divider(height: 1, color: Colors.white10),
                     _buildTile(
                         Icons.logout,
