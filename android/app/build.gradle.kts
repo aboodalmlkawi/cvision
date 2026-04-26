@@ -45,7 +45,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.almlkawi.cvision.cvision"
+        applicationId = "com.professionaldigital.cvision"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
