@@ -37,11 +37,9 @@ class DefaultFirebaseOptions {
     }
   }
 
-
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDd5R7Mvwz3XnYOqBLQynx0xAhXDyxr_ms',
-    appId: '1:858577683771:android:c9655a758fe4564e62a31e',
+    appId: '1:858577683771:android:593a487c9296adbe62a31e',
     messagingSenderId: '858577683771',
     projectId: 'cvision-d2b19',
     storageBucket: 'cvision-d2b19.firebasestorage.app',

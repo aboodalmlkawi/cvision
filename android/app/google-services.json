@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:858577683771:android:c9655a758fe4564e62a31e",
+        "mobilesdk_app_id": "1:858577683771:android:593a487c9296adbe62a31e",
         "android_client_info": {
-          "package_name": "com.almlkawi.cvision.cvision"
+          "package_name": "com.professionaldigital.cvision"
         }
       },
       "oauth_client": [],
